@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/07/2015 23:07:03 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="CapaDatos.Propuesta" table="propuesta" catalog="procesosproyectofinaldb" optimistic-lock="version">
+        <id name="idpropuesta" type="java.lang.Integer">
+            <column name="idpropuesta" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="seccionDep" class="CapaDatos.SeccionDep" fetch="select">
+            <column name="idsecd" />
+        </many-to-one>
+        <many-to-one name="usuario" class="CapaDatos.Usuario" fetch="select">
+            <column name="idusu" />
+        </many-to-one>
+        <property name="nombreP" type="string">
+            <column name="nombre_p" length="300" />
+        </property>
+        <property name="estadoP" type="java.lang.Integer">
+            <column name="estado_p" />
+        </property>
+        <property name="descripcionP" type="string">
+            <column name="descripcion_p" length="500" />
+        </property>
+        <property name="fechaP" type="date">
+            <column name="fecha_p" length="10" />
+        </property>
+        <property name="comiteIdcomite" type="java.lang.Integer">
+            <column name="comite_idcomite" />
+        </property>
+        <property name="comentarioP" type="string">
+            <column name="comentario_p" length="500" />
+        </property>
+    </class>
+</hibernate-mapping>

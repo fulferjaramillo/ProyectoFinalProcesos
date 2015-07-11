@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Inicio</title>
+    </h:head>
+
+    <h:body>
+        
+        
+        
+        <div id="top">
+            <ui:insert name="top">
+               <ui:insert name="bottom">*****************Bienvenido Administrador******************</ui:insert>  
+            </ui:insert>
+        </div>
+       
+       
+       
+        <div id="menu">
+            <h:form>  
+
+                <p:menubar>
+                    <p:submenu label="Mostrar Proyectos FIn de Carrera" icon="ui-icon-document">
+                        <p:submenu label="Buscar" icon="ui-icon-contact">
+                            <p:menuitem value="Listar" url="#{appBean.basePath}Director/proyectosft.xhtml" />
+                        </p:submenu>
+                    </p:submenu>
+
+                    <p:submenu label="Chequear Reportes" icon="ui-icon-pencil">
+                        <p:menuitem value="Editar" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:submenu>
+
+                    <p:submenu label="Mostrar Propuestas" icon="ui-icon-help">
+                        <p:submenu label="Buscar" icon="ui-icon-search">   
+                            <p:menuitem value="Listar" url="#{appBean.basePath}Director/propuestas.xhtml" />
+
+
+                        </p:submenu>
+                    </p:submenu>
+
+
+                    <p:menuitem value="Salir" actionListener="#{loginBean.logout()}" icon="ui-icon-close" oncomplete="handleLoginRequest(xhr, status, args)"/>
+
+                    <f:facet name="options">
+                        <p:inputText style="margin-right:10px" placeholder="Search"/>
+                        <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+                    </f:facet>
+                </p:menubar>
+            </h:form>
+
+        </div>
+
+        <div id="content" class="center_content">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+
+        <div id="bottom">
+            <ui:insert name="bottom">Derechos Reservados UTPL</ui:insert>
+        </div>
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if (args.loggetOut) {
+                    
+                    location.href=args.ruta;
+                }
+            }
+        </script>
+    </h:body>
+
+</html>

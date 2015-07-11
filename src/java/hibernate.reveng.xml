@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="procesosproyectofinaldb"/>
+  <table-filter match-name="proyectoft"/>
+  <table-filter match-name="direccion"/>
+  <table-filter match-name="propuesta"/>
+  <table-filter match-name="comite"/>
+  <table-filter match-name="usuario"/>
+  <table-filter match-name="seccion_dep"/>
+</hibernate-reverse-engineering>

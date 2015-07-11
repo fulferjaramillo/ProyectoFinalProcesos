@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/07/2015 23:07:03 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="CapaDatos.SeccionDep" table="seccion_dep" catalog="procesosproyectofinaldb" optimistic-lock="version">
+        <id name="idseccion" type="int">
+            <column name="idseccion" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombreS" type="string">
+            <column name="nombre_s" length="45" />
+        </property>
+        <set name="propuestas" table="propuesta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idsecd" />
+            </key>
+            <one-to-many class="CapaDatos.Propuesta" />
+        </set>
+        <set name="proyectofts" table="proyectoft" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idseccion" not-null="true" />
+            </key>
+            <one-to-many class="CapaDatos.Proyectoft" />
+        </set>
+        <set name="proyectofts_1" table="proyectoft" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idseccion" not-null="true" />
+            </key>
+            <one-to-many class="CapaDatos.Proyectoft" />
+        </set>
+        <set name="usuarios" table="usuario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idsec" />
+            </key>
+            <one-to-many class="CapaDatos.Usuario" />
+        </set>
+    </class>
+</hibernate-mapping>

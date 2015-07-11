@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/07/2015 23:07:03 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="CapaDatos.Comite" table="comite" catalog="procesosproyectofinaldb" optimistic-lock="version">
+        <id name="idcomite" type="java.lang.Integer">
+            <column name="idcomite" />
+            <generator class="identity" />
+        </id>
+        <property name="director" type="java.lang.Integer">
+            <column name="director" />
+        </property>
+        <property name="docente1" type="string">
+            <column name="docente1" length="11" />
+        </property>
+        <property name="docente2" type="string">
+            <column name="docente2" length="50" />
+        </property>
+        <property name="docente3" type="string">
+            <column name="docente3" length="11" />
+        </property>
+    </class>
+</hibernate-mapping>

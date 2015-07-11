@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/07/2015 23:07:03 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="CapaDatos.Direccion" table="direccion" catalog="procesosproyectofinaldb" optimistic-lock="version">
+        <id name="iddireccion" type="java.lang.Integer">
+            <column name="iddireccion" />
+            <generator class="identity" />
+        </id>
+        <property name="directorPy" type="java.lang.Integer">
+            <column name="director_py" />
+        </property>
+        <property name="auxiliar1" type="java.lang.Integer">
+            <column name="auxiliar1" />
+        </property>
+        <property name="auxiliar2" type="java.lang.Integer">
+            <column name="auxiliar2" />
+        </property>
+        <set name="proyectofts" table="proyectoft" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iddireccion" not-null="true" />
+            </key>
+            <one-to-many class="CapaDatos.Proyectoft" />
+        </set>
+        <set name="proyectofts_1" table="proyectoft" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iddireccion" not-null="true" />
+            </key>
+            <one-to-many class="CapaDatos.Proyectoft" />
+        </set>
+    </class>
+</hibernate-mapping>

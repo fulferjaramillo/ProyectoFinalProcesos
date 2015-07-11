@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../templateDirector.xhtml">
+
+            <ui:define name="content" >
+                <p:growl id="msgs" showDetail="true" />
+
+                <h:form id="formDataTable" >
+
+                    <p:dataTable id="basicDT" var="usuario" value="#{PropuestaBean.propuestas}" >
+
+                        <p:column headerText="Autor Propuesta" style="width:10%">
+                            <h:outputText value="#{usuario.usuario.nombres}" />
+                        </p:column>
+                        <p:column headerText="Correo Electronico" style="width:10%">
+                            <h:outputText value="#{usuario.usuario.correo}" />
+                        </p:column>
+
+                        <p:column headerText="NOmbre de la Propuesta" style="width:24%">
+                            <h:outputText value="#{usuario.nombreP}" />
+                        </p:column>
+
+                        <p:column headerText="Descripcion ">
+                            <h:outputText value="#{usuario.descripcionP}" />
+                        </p:column>
+
+                        <p:column headerText="Fecha  ">
+                            <h:outputText value="#{usuario.fechaP}" />
+                        </p:column>
+
+                        <p:column headerText="Estado" style="width:8%">
+                            <h:outputText value="#{usuario.estadoP}" />
+                        </p:column>
+
+                        <p:column style="width:100px;text-align: center">
+                            <h:form>           
+                                <p:growl id="message" showDetail="true" />
+
+                                <p:commandButton value="Confirmar Propuesta" actionListener="#{dialogView.destroyWorld}" update="message">
+                                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                </p:commandButton>
+
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
+                            </h:form>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

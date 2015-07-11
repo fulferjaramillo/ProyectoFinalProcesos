@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../templateDirector.xhtml">
+
+            <ui:define name="content" >
+                <p:growl id="msgs" showDetail="true" />
+
+                <h:form id="formDataTable" >
+
+                    <p:dataTable id="basicDT" var="usuario" value="#{proyectoftBean.proyecto}" >
+
+                         <p:column headerText="Autor del Proyecto ">
+                            <h:outputText value="#{usuario.usuario.nombres}" />
+                        </p:column>
+                        
+                        <p:column headerText="Nombre del ProyectoFT" style="width:10%">
+                            <h:outputText value="#{usuario.nombrePy}" />
+                        </p:column>
+                        
+                        <p:column headerText="Descripcion del Proyecto" style="width:10%">
+                            <h:outputText value="#{usuario.descripcionPy}" />
+                        </p:column>
+
+                        <p:column headerText="Fecha de Inicio" style="width:24%">
+                            <h:outputText value="#{usuario.fechaIniPy}" />
+                        </p:column>
+
+                        <p:column headerText="Comentarios ">
+                            <h:outputText value="#{usuario.comentarioPy}" />
+                        </p:column>
+
+                       
+
+                        <p:column style="width:100px;text-align: center">
+                            <h:form>           
+                                <p:growl id="message" showDetail="true" />
+
+                                <p:commandButton value="Confirmar Propuesta" actionListener="#{dialogView.destroyWorld}" update="message">
+                                    <p:confirm header="Confirmar" message="Are you sure?" icon="ui-icon-alert" />
+                                </p:commandButton>
+
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
+                            </h:form>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
