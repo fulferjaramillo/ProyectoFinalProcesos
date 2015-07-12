@@ -7,7 +7,11 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
-
+        <script>
+            
+            var idUsuarioSesion=window.location.search.substr(1);
+        </script>
+            
         <ui:composition template="./../templateEstudiante.xhtml">
 
             <ui:define name="content" id="estudiante">
@@ -20,6 +24,8 @@
 
                     <p:dataTable id="basicDT" var="usuario" value="#{PropuestaBean.propuestas}">
 
+                        
+                        
                         <p:column headerText="NOmbre de la Propuesta" style="width:24%">
                             <h:outputText value="#{usuario.nombreP}" />
                         </p:column>
@@ -28,21 +34,17 @@
                             <h:outputText value="#{usuario.descripcionP}" />
                         </p:column>
 
-                        <p:column headerText="Fecha  ">
-                            <h:outputText value="#{usuario.fechaP}" />
+                        <p:column headerText="Estado 1 aprobado || 0 en proceso  ">
+                            <h:outputText value="#{usuario.estadoP}" />
                         </p:column>
 
-                        <p:column headerText="Estado">
-                            <h:outputText value="#{usuario.estadoP}" />
+                        <p:column headerText="Comentarios">
+                            <h:outputText value="#{usuario.comentarioP}" />
                         </p:column>
 
                         <p:column style="width:32px;text-align: center">
                             <p:commandButton id="btnActualizar" update=":formUpdate, :msgs" oncomplete="PF('dialogUsuarioUpdate').show()" icon="ui-icon-search" title="Actualizar">
                                 <f:setPropertyActionListener value="#{usuario}" target="#{PropuestaBean.selectedPropuesta}" />
-                            </p:commandButton>
-
-                            <p:commandButton id="btnEliminarr" update=":formEliminar" oncomplete="PF('dialogUsuarioEliminar').show()" icon="ui-icon-close" title="Eliminar">
-
                             </p:commandButton>
 
                         </p:column>
@@ -51,15 +53,14 @@
                 <h:form id="formCrear">
                     <p:dialog header="Crear Usuario" widgetVar="dialogUsuarioCrear" resizable="false" id="dlgusuarioCrear" showEffect="fade" hideEffect="explode" modal="true">
                         <p:panelGrid id="display" columns="2" style="margin:0 auto;">
-
-
+                            
                             <h:outputText value="NOmbre de Propuesta" />
-                            <p:inputText value="#{PropuestaBean.selectedPropuesta.nombreP}" />
+                            <p:inputText value="#{PropuestaBean.selectedPropuesta.nombreP}" size="40"/>
 
                             <h:outputText value="Descripcion" />
-                            <p:inputText value="#{PropuestaBean.selectedPropuesta.descripcionP}" />
+                            <p:inputTextarea value="#{PropuestaBean.selectedPropuesta.descripcionP}" />
                             
-                            <h:outputText value="Estado 1/0" />
+                            <h:outputText value="Estado del Propuesta 1/0" />
                             <p:inputText value="#{PropuestaBean.selectedPropuesta.estadoP}" />
 
                             <h:outputText value="Comentario" />
@@ -78,32 +79,28 @@
                     <p:dialog header="MOdificar Usuario"  widgetVar="dialogUsuarioUpdate" id="dlgusuarioUpdate" showEffect="fade" hideEffect="explode" >
                         <p:panelGrid id="display" columns="2" style="margin:0 auto;">
 
-
+                            <h:outputText value="Id Usuario" />
+                            <p:inputText value="#{PropuestaBean.selectedPropuesta.idpropuesta}" size="60"/>
+                            
                             <h:outputText value="NOmbre de Propuesta" />
-                            <p:inputText value="#{PropuestaBean.selectedPropuesta.nombreP}" />
+                            <p:inputText value="#{PropuestaBean.selectedPropuesta.nombreP}" size="60"/>
 
                             <h:outputText value="Descripcion" />
-                            <p:inputText value="#{PropuestaBean.selectedPropuesta.descripcionP}" />
+                            <p:inputTextarea value="#{PropuestaBean.selectedPropuesta.descripcionP}" />
 
                             <h:outputText value="Estado" />
-                            <p:inputText value="#{PropuestaBean.selectedPropuesta.estadoP}"  size="80"/>
+                            <p:inputText value="#{PropuestaBean.selectedPropuesta.estadoP}"  />
 
                             <h:outputText value="Comentario" />
-                            <p:inputText value="#{PropuestaBean.selectedPropuesta.comentarioP}" />
+                            <p:inputText value="#{PropuestaBean.selectedPropuesta.comentarioP}" size="80" />
                             <f:facet name="footer">
-                                <p:commandButton id="btnactualizar"  value="Actualizar" type="button" update=":formDataTable, :msgs" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" oncomplete="PF('dialogUsuarioUpdate').hide()" />
+                                <p:commandButton id="btnactualizar"  value="Actualizar"  update=":formDataTable, :msgs"  icon="ui-icon-check" oncomplete="PF('dialogUsuarioUpdate').hide()" actionListener="#{PropuestaBean.btnEditarPropuesta(actionEvent)}"/>
                                 <p:commandButton id="btncancelarupdate" value="Cancelar" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  onclick="PF('dialogUsuarioUpdate').hide()"/>
                             </f:facet>
                         </p:panelGrid>
                     </p:dialog>
                 </h:form>
-                <h:form id="formEliminar">
-                    <p:confirmDialog showEffect="fade" hideEffect="fade" id="confirmDialog" message="Esta seguro de eliminar la propuesta" header="Eliminar Propuesta" widgetVar="dialogUsuarioEliminar">
-                        <p:commandButton id="confirmar" value="Aceptar"  update=":msgs" icon="ui-icon-check" oncomplete="dialogUsuarioEliminar.hide()" actionListener="#{PropuestaBean.btnEliminarPropuesta(actionEvent)}" />
-                        <p:commandButton id="eliminar" value="Cancelar" type="button"  icon="ui-icon-close" onclick="PF('dialogUsuarioEliminar').hide()"/>
-                    </p:confirmDialog>
-
-                </h:form>
+                
             </ui:define>
         </ui:composition>
     </body>

@@ -9,6 +9,7 @@ import CapaDatos.Propuesta;
 import CapaDatos.Proyectoft;
 import CapaDatos.Usuario;
 import Util.HibernateUtil;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -17,17 +18,19 @@ import org.hibernate.Session;
  *
  * @author fernando
  */
-public class UsuarioDaoImplemet implements UsuarioDao{
+public class UsuarioDaoImplemet implements UsuarioDao {
 
     @Override
     public Usuario findbyUsuario(Usuario usuario) {
-        Usuario model=null;
-        Session sesion=HibernateUtil.getSessionFactory().getCurrentSession();
-        String sql="FROM Usuario WHERE correo='"+usuario.getCorreo()+"'";
+        Usuario model = null;
+        Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
+        String sql = "FROM Usuario WHERE correo='" + usuario.getCorreo() + "'";
         try {
+            System.out.println("aqui estoy");
             sesion.beginTransaction();
-            model= (Usuario) sesion.createQuery(sql).uniqueResult();
-           
+            System.out.println("aqui estoy despues");
+            model = (Usuario) sesion.createQuery(sql).uniqueResult();
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -36,99 +39,99 @@ public class UsuarioDaoImplemet implements UsuarioDao{
 
     @Override
     public Usuario login(Usuario usuario) {
-       Usuario model=this.findbyUsuario(usuario);
-      if(model !=null){
-      if(!usuario.getPassword().equals(model.getPassword())){
-          model=null;
-      }
-      }
-       return model;
+        Usuario model = this.findbyUsuario(usuario);
+        if (model != null) {
+            if (!usuario.getPassword().equals(model.getPassword())) {
+                model = null;
+            }
+        }
+        return model;
     }
 
     @Override
     public List<Propuesta> findAll() {
-        List<Propuesta> listado=null;
-        Session sesion=HibernateUtil.getSessionFactory().getCurrentSession();
-        String sql="FROM Propuesta";
+        List<Propuesta> listado = new ArrayList<>();
+        Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
+        String sql = "FROM Propuesta";
         try {
             sesion.beginTransaction();
-            listado= sesion.createQuery(sql).list();
-           
+            listado = sesion.createQuery(sql).list();
+            sesion.getTransaction().commit();
+
         } catch (Exception e) {
-            System.out.println("No hay propuestas que mostrar"+e);
+            System.out.println("No hay propuestas que mostrar:" + e.getCause());
         }
         return listado;
     }
-    
-    @Override
-    public List<Proyectoft> findAllProyectoft() {
-        List<Proyectoft> listado=null;
-        Session sesion=HibernateUtil.getSessionFactory().getCurrentSession();
-        String sql="FROM Proyectoft";
-        try {
-            sesion.beginTransaction();
-            listado= sesion.createQuery(sql).list();
-           
-        } catch (Exception e) {
-            System.out.println("No hay proyectos que mostrar"+e);
-        }
-        return listado;
-    }
-    
 
     @Override
-    public boolean crearPropuesta(Propuesta propuesta) {   
+    public List<Proyectoft> findAllProyectoft() {
+        List<Proyectoft> listado = new ArrayList<>();
+        Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
+        String sql = "FROM Proyectoft";
+        try {
+            sesion.beginTransaction();
+            listado = sesion.createQuery(sql).list();
+
+        } catch (Exception e) {
+            System.out.println("No hay proyectos que mostrar" + e);
+        }
+        return listado;
+    }
+
+    @Override
+    public boolean crearPropuesta(Propuesta propuesta) {
         boolean cr;
-        Session sesion=HibernateUtil.getSessionFactory().getCurrentSession();
-  
+        Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
+
         try {
             sesion.beginTransaction();
             sesion.save(propuesta);
-           sesion.getTransaction().commit();
-           cr=true;
+            sesion.getTransaction().commit();
+            cr = true;
         } catch (Exception e) {
-            cr=false;
+            cr = false;
             System.out.println(e.getMessage());
            // sesion.beginTransaction().rollback();
         }
         return cr;
-        }
-       
-   
+    }
+
     @Override
     public boolean modificarPropuesta(Propuesta propuesta) {
-        boolean cr=false;
-        Session sesion=HibernateUtil.getSessionFactory().getCurrentSession();
-  
+        boolean cr ;
+        Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
+        System.out.println("aqui1");
         try {
             sesion.beginTransaction();
+            System.out.println("aqui2");
+            System.out.println("aslhdgygfksdjfhsdg-----------"+propuesta.getComentarioP());
+            System.out.println("adasd----------------------"+propuesta.getIdpropuesta());
             sesion.update(propuesta);
-            
-           cr=true;
+            System.out.println("aqui3");
+            sesion.getTransaction().commit();
+
+            cr = true;
         } catch (Exception e) {
-            cr=false;
-            System.out.println(e);
+            cr = false;
+            System.out.println("Exception------------------------------"+e.getMessage());
         }
         return cr;
-    } 
+    
+    }
 
-    @Override
-    public boolean eliminarPropuesta(Integer id) {
-      boolean cr=false;
-        Session sesion=HibernateUtil.getSessionFactory().getCurrentSession();
-  
+    public Usuario obtenerUsuario(Integer idUsuario) {
+        Usuario model = null;
+        Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
+        String sql = "FROM Usuario WHERE idusuario='" + idUsuario + "'";
         try {
             sesion.beginTransaction();
-            Propuesta propuesta=(Propuesta) sesion.load(Propuesta.class, id);
-            sesion.delete(propuesta);
-           cr=true;
+            model = (Usuario) sesion.createQuery(sql).uniqueResult();
+
         } catch (Exception e) {
-            cr=false;
             System.out.println(e);
         }
-        return cr;
-    } 
+        return model;
+    }
 
-    
-    
 }

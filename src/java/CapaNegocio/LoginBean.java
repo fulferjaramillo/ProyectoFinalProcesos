@@ -59,7 +59,7 @@ public class LoginBean implements Serializable {
             loggedIn = true;
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", this.usuario.getCorreo());
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", this.usuario.getCorreo());
-            ruta = MyUtil.basepathLOgin() + "views/Estudiante.xhtml";
+            ruta = MyUtil.basepathLOgin() + "views/Estudiante.xhtml?1";
 
         }else if (this.usuario != null && this.usuario.getRol()==2) {
             loggedIn = true;

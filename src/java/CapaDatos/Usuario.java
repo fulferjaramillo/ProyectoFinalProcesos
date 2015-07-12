@@ -41,6 +41,7 @@ public class Usuario  implements java.io.Serializable {
      private Set proyectofts = new HashSet(0);
 
     public Usuario() {
+        
     }
 
 	

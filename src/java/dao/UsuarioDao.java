@@ -15,10 +15,10 @@ import java.util.List;
  */
 public interface UsuarioDao {
     public Usuario findbyUsuario(Usuario usuario);
+    public Usuario obtenerUsuario(Integer idUsuario);
     public Usuario login(Usuario usuario);
     public List<Propuesta> findAll();
      public List<Proyectoft> findAllProyectoft();
     public boolean crearPropuesta(Propuesta propuesta);
     public boolean modificarPropuesta(Propuesta propuesta);
-    public boolean eliminarPropuesta(Integer id);
 }
