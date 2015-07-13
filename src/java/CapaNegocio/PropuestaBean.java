@@ -31,10 +31,12 @@ public class PropuestaBean {
     private List<Propuesta> propuesta;
     private Propuesta selectedPropuesta;
     private Usuario selectUsuario;
+    private SeccionDep  selectedSeccion;
 
     public PropuestaBean() {
         this.propuesta = new ArrayList<Propuesta>();
         selectedPropuesta = new Propuesta();
+        selectedSeccion=new SeccionDep();
 
     }
 
@@ -54,9 +56,18 @@ public class PropuestaBean {
         return selectUsuario;
     }
 
+    public SeccionDep getSelectedSeccion() {
+        return selectedSeccion;
+    }
+    
     public void setSelectedPropuesta(Propuesta selectedPropuesta) {
         this.selectedPropuesta = selectedPropuesta;
     }
+
+    public void setSelectUsuario(Usuario selectUsuario) {
+        this.selectUsuario = selectUsuario;
+    }
+    
 
     public void btnCrearPropuesta(ActionEvent actionEvent) {
 
@@ -70,7 +81,7 @@ public class PropuestaBean {
 //        
 //          this.selectedPropuesta.setComiteIdcomite(2);
 //            this.selectedPropuesta.setIdpropuesta(4);
-//              this.selectedPropuesta.setSeccionDep(new SeccionDep(1));
+             
         //this.selectedPropuesta.setComentarioP(this.selectedPropuesta.getComentarioP());
         //  if (this.selectedPropuesta.getUsuario().getNumCreditos() >= 200) {
         if (this.selectedPropuesta.getNombreP().equals("") || this.selectedPropuesta.getDescripcionP().equals("")
@@ -79,8 +90,11 @@ public class PropuestaBean {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null);
             FacesContext.getCurrentInstance().addMessage(null, message);
         } else {
-            selectedPropuesta.setComiteIdcomite(1);
-            selectedPropuesta.setFechaP(new Date());
+    
+            this.selectedPropuesta.setSeccionDep(new SeccionDep(1));
+            this.selectedPropuesta.setComiteIdcomite(1);
+            this.selectedPropuesta.setFechaP(new Date());
+            
             if (usuarioDao.crearPropuesta(this.selectedPropuesta)) {
                 msg = "Guardado correctamente su Propuesta";
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, msg, null);

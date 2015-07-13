@@ -92,21 +92,21 @@ public class UsuarioDaoImplemet implements UsuarioDao {
         } catch (Exception e) {
             cr = false;
             System.out.println(e.getMessage());
-           // sesion.beginTransaction().rollback();
+            // sesion.beginTransaction().rollback();
         }
         return cr;
     }
 
     @Override
     public boolean modificarPropuesta(Propuesta propuesta) {
-        boolean cr ;
+        boolean cr;
         Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
         System.out.println("aqui1");
         try {
             sesion.beginTransaction();
             System.out.println("aqui2");
-            System.out.println("aslhdgygfksdjfhsdg-----------"+propuesta.getComentarioP());
-            System.out.println("adasd----------------------"+propuesta.getIdpropuesta());
+            System.out.println("aslhdgygfksdjfhsdg-----------" + propuesta.getComentarioP());
+            System.out.println("adasd----------------------" + propuesta.getIdpropuesta());
             sesion.update(propuesta);
             System.out.println("aqui3");
             sesion.getTransaction().commit();
@@ -114,12 +114,13 @@ public class UsuarioDaoImplemet implements UsuarioDao {
             cr = true;
         } catch (Exception e) {
             cr = false;
-            System.out.println("Exception------------------------------"+e.getMessage());
+            System.out.println("Exception------------------------------" + e.getMessage());
         }
         return cr;
-    
+
     }
 
+    @Override
     public Usuario obtenerUsuario(Integer idUsuario) {
         Usuario model = null;
         Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -130,8 +131,13 @@ public class UsuarioDaoImplemet implements UsuarioDao {
 
         } catch (Exception e) {
             System.out.println(e);
-        }
-        return model;
-    }
 
+        } finally {
+            if (sesion != null) {
+                sesion.close();
+            }
+        }
+            return model;
+        
+    }
 }

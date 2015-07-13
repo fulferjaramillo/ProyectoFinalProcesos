@@ -25,7 +25,6 @@
                     <p:dataTable id="basicDT" var="usuario" value="#{PropuestaBean.propuestas}">
 
                         
-                        
                         <p:column headerText="NOmbre de la Propuesta" style="width:24%">
                             <h:outputText value="#{usuario.nombreP}" />
                         </p:column>
@@ -53,6 +52,8 @@
                 <h:form id="formCrear">
                     <p:dialog header="Crear Usuario" widgetVar="dialogUsuarioCrear" resizable="false" id="dlgusuarioCrear" showEffect="fade" hideEffect="explode" modal="true">
                         <p:panelGrid id="display" columns="2" style="margin:0 auto;">
+                            
+                     
                             
                             <h:outputText value="NOmbre de Propuesta" />
                             <p:inputText value="#{PropuestaBean.selectedPropuesta.nombreP}" size="40"/>

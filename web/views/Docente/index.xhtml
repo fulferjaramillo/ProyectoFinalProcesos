@@ -55,15 +55,16 @@
                 <h:form id="formCrear">
                     <p:dialog header="Crear Usuario" widgetVar="dialogUsuarioCrear" resizable="false" id="dlgusuarioCrear" showEffect="fade" hideEffect="explode" modal="true">
                         <p:panelGrid id="display" columns="2" style="margin:0 auto;">
-
-
+                            
+                     
+                            
                             <h:outputText value="NOmbre de Propuesta" />
-                            <p:inputText value="#{PropuestaBean.selectedPropuesta.nombreP}" />
+                            <p:inputText value="#{PropuestaBean.selectedPropuesta.nombreP}" size="40"/>
 
                             <h:outputText value="Descripcion" />
-                            <p:inputText value="#{PropuestaBean.selectedPropuesta.descripcionP}" />
+                            <p:inputTextarea value="#{PropuestaBean.selectedPropuesta.descripcionP}" />
                             
-                            <h:outputText value="Estado 1/0" />
+                            <h:outputText value="Estado del Propuesta 1/0" />
                             <p:inputText value="#{PropuestaBean.selectedPropuesta.estadoP}" />
 
                             <h:outputText value="Comentario" />
