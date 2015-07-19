@@ -20,10 +20,16 @@ import org.hibernate.Session;
  */
 public class UsuarioDaoImplemet implements UsuarioDao {
 
+    Session sesion = null;
+
+    public UsuarioDaoImplemet() {
+        this.sesion = HibernateUtil.getSessionFactory().getCurrentSession();
+    }
+
     @Override
     public Usuario findbyUsuario(Usuario usuario) {
         Usuario model = null;
-        Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
+        // Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
         String sql = "FROM Usuario WHERE correo='" + usuario.getCorreo() + "'";
         try {
             System.out.println("aqui estoy");
@@ -51,29 +57,33 @@ public class UsuarioDaoImplemet implements UsuarioDao {
     @Override
     public List<Propuesta> findAll() {
         List<Propuesta> listado = new ArrayList<>();
-        Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
+        //  Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
         String sql = "FROM Propuesta";
         try {
             sesion.beginTransaction();
             listado = sesion.createQuery(sql).list();
-            sesion.getTransaction().commit();
+          // sesion.getTransaction().commit();
 
         } catch (Exception e) {
+            sesion.getTransaction().rollback();
             System.out.println("No hay propuestas que mostrar:" + e.getCause());
+                 
         }
         return listado;
+        
     }
 
     @Override
     public List<Proyectoft> findAllProyectoft() {
         List<Proyectoft> listado = new ArrayList<>();
-        Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
-        String sql = "FROM Proyectoft";
+        //Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
+        String sql = "FROM Proyectoft  WHERE estado_py='2'";
         try {
             sesion.beginTransaction();
             listado = sesion.createQuery(sql).list();
 
         } catch (Exception e) {
+            sesion.getTransaction().rollback();
             System.out.println("No hay proyectos que mostrar" + e);
         }
         return listado;
@@ -82,10 +92,10 @@ public class UsuarioDaoImplemet implements UsuarioDao {
     @Override
     public boolean crearPropuesta(Propuesta propuesta) {
         boolean cr;
-        Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
+        //  Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
 
         try {
-            sesion.beginTransaction();
+           // sesion.beginTransaction();
             sesion.save(propuesta);
             sesion.getTransaction().commit();
             cr = true;
@@ -100,30 +110,25 @@ public class UsuarioDaoImplemet implements UsuarioDao {
     @Override
     public boolean modificarPropuesta(Propuesta propuesta) {
         boolean cr;
-        Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
+        //   Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
         System.out.println("aqui1");
         try {
-            sesion.beginTransaction();
-            System.out.println("aqui2");
-            System.out.println("aslhdgygfksdjfhsdg-----------" + propuesta.getComentarioP());
-            System.out.println("adasd----------------------" + propuesta.getIdpropuesta());
+          // sesion.beginTransaction();          
             sesion.update(propuesta);
-            System.out.println("aqui3");
             sesion.getTransaction().commit();
 
             cr = true;
         } catch (Exception e) {
             cr = false;
-            System.out.println("Exception------------------------------" + e.getMessage());
         }
         return cr;
 
     }
 
     @Override
-    public Usuario obtenerUsuario(Integer idUsuario) {
+    public Usuario obtenerUsuario(int idUsuario) {
         Usuario model = null;
-        Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
+        //   Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
         String sql = "FROM Usuario WHERE idusuario='" + idUsuario + "'";
         try {
             sesion.beginTransaction();
@@ -132,12 +137,9 @@ public class UsuarioDaoImplemet implements UsuarioDao {
         } catch (Exception e) {
             System.out.println(e);
 
-        } finally {
-            if (sesion != null) {
-                sesion.close();
-            }
         }
-            return model;
-        
+
+        return model;
+
     }
 }

@@ -7,6 +7,10 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
+        <script>
+            
+            var idUsuarioSesion=window.location.search.substr(3);
+        </script>
 
         <ui:composition template="./../templateDirector.xhtml">
 
@@ -44,8 +48,8 @@
                             <h:form>           
                                 <p:growl id="message" showDetail="true" />
 
-                                <p:commandButton value="Confirmar Propuesta" actionListener="#{dialogView.destroyWorld}" update="message">
-                                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                <p:commandButton id="btnComprobar" update=":formComprobar, :msgs" oncomplete="PF('dialogUsuarioComprobar').show()" icon="ui-icon-search" title="Verificar Propuesta">
+                                    <f:setPropertyActionListener value="#{usuario}" target="#{PropuestaBean.selectedPropuesta}" />
                                 </p:commandButton>
 
                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
@@ -56,7 +60,23 @@
                         </p:column>
                     </p:dataTable>
                 </h:form>
+                    <h:form id="formComprobar">
+                        <p:dialog header="Aprobar Propuesta"  widgetVar="dialogUsuarioComprobar" id="dlgusuarioComprobar" showEffect="fade" hideEffect="explode" >
+                            <p:panelGrid id="display" columns="2" style="margin:0 auto;">
 
+                                <h:outputText value="Id Propuesta" />
+                                <p:inputText value="#{PropuestaBean.selectedPropuesta.idpropuesta}" size="60"/>
+
+                                <h:outputText value="Estado 1 En Curso|| 2 Aprobar" />
+                                <p:inputTextarea value="#{PropuestaBean.selectedPropuesta.estadoP}" />
+
+                                <f:facet name="footer">
+                                    <p:commandButton id="btcomprovar"  value="Aprobar"  update=":formDataTable, :msgs"  icon="ui-icon-check" oncomplete="PF('dialogUsuarioComprobar').hide()" actionListener="#{PropuestaBean.btnEditarPropuesta(actionEvent)}"/>
+                                    <p:commandButton id="btncancelarcomporbar" value="Cancelar" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  onclick="PF('dialogUsuarioComprobar').hide()"/>
+                                </f:facet>
+                            </p:panelGrid>
+                        </p:dialog>
+                    </h:form>
             </ui:define>
         </ui:composition>
     </body>

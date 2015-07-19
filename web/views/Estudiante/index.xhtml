@@ -8,10 +8,15 @@
 
     <body>
         <script>
-            
-            var idUsuarioSesion=window.location.search.substr(1);
+
+            var idUsuarioSesion = window.location.search.substr(1);
+            function handleLoginRequest(xhr, status, args) {
+                if (args.validationFailed || !args.loggedIn) {
+                    location.href = args.id;
+                }
+            }
         </script>
-            
+
         <ui:composition template="./../templateEstudiante.xhtml">
 
             <ui:define name="content" id="estudiante">
@@ -24,7 +29,7 @@
 
                     <p:dataTable id="basicDT" var="usuario" value="#{PropuestaBean.propuestas}">
 
-                        
+
                         <p:column headerText="NOmbre de la Propuesta" style="width:24%">
                             <h:outputText value="#{usuario.nombreP}" />
                         </p:column>
@@ -52,20 +57,14 @@
                 <h:form id="formCrear">
                     <p:dialog header="Crear Usuario" widgetVar="dialogUsuarioCrear" resizable="false" id="dlgusuarioCrear" showEffect="fade" hideEffect="explode" modal="true">
                         <p:panelGrid id="display" columns="2" style="margin:0 auto;">
-                            
-                     
+
                             
                             <h:outputText value="NOmbre de Propuesta" />
                             <p:inputText value="#{PropuestaBean.selectedPropuesta.nombreP}" size="40"/>
 
                             <h:outputText value="Descripcion" />
                             <p:inputTextarea value="#{PropuestaBean.selectedPropuesta.descripcionP}" />
-                            
-                            <h:outputText value="Estado del Propuesta 1/0" />
-                            <p:inputText value="#{PropuestaBean.selectedPropuesta.estadoP}" />
 
-                            <h:outputText value="Comentario" />
-                            <p:inputText value="#{PropuestaBean.selectedPropuesta.comentarioP}" size="40"/>
 
                             <f:facet name="footer">
                                 <p:commandButton id="btnguardar"  value="Crear" update=":formDataTable, :msgs" icon="ui-icon-check" 
@@ -82,18 +81,13 @@
 
                             <h:outputText value="Id Usuario" />
                             <p:inputText value="#{PropuestaBean.selectedPropuesta.idpropuesta}" size="60"/>
-                            
+
                             <h:outputText value="NOmbre de Propuesta" />
                             <p:inputText value="#{PropuestaBean.selectedPropuesta.nombreP}" size="60"/>
 
                             <h:outputText value="Descripcion" />
                             <p:inputTextarea value="#{PropuestaBean.selectedPropuesta.descripcionP}" />
 
-                            <h:outputText value="Estado" />
-                            <p:inputText value="#{PropuestaBean.selectedPropuesta.estadoP}"  />
-
-                            <h:outputText value="Comentario" />
-                            <p:inputText value="#{PropuestaBean.selectedPropuesta.comentarioP}" size="80" />
                             <f:facet name="footer">
                                 <p:commandButton id="btnactualizar"  value="Actualizar"  update=":formDataTable, :msgs"  icon="ui-icon-check" oncomplete="PF('dialogUsuarioUpdate').hide()" actionListener="#{PropuestaBean.btnEditarPropuesta(actionEvent)}"/>
                                 <p:commandButton id="btncancelarupdate" value="Cancelar" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  onclick="PF('dialogUsuarioUpdate').hide()"/>
@@ -101,7 +95,7 @@
                         </p:panelGrid>
                     </p:dialog>
                 </h:form>
-                
+
             </ui:define>
         </ui:composition>
     </body>

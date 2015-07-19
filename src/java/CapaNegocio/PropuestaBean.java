@@ -32,11 +32,16 @@ public class PropuestaBean {
     private Propuesta selectedPropuesta;
     private Usuario selectUsuario;
     private SeccionDep  selectedSeccion;
+    private UsuarioDao usuarioDao;
+    private UsuarioDaoImplemet id;
+   
 
     public PropuestaBean() {
         this.propuesta = new ArrayList<Propuesta>();
         selectedPropuesta = new Propuesta();
+        this.id=new UsuarioDaoImplemet();
         selectedSeccion=new SeccionDep();
+       
 
     }
 
@@ -71,21 +76,10 @@ public class PropuestaBean {
 
     public void btnCrearPropuesta(ActionEvent actionEvent) {
 
-        UsuarioDao usuarioDao = new UsuarioDaoImplemet();
-        //selectUsuario = usuarioDao.obtenerUsuario(1);
-
+      UsuarioDao usuarioDao = new UsuarioDaoImplemet();
         String msg;
-        //this.selectedPropuesta.setNombreP(this.selectedPropuesta.getNombreP());
-        //this.selectedPropuesta.setDescripcionP(this.selectedPropuesta.getDescripcionP());
-
-//        
-//          this.selectedPropuesta.setComiteIdcomite(2);
-//            this.selectedPropuesta.setIdpropuesta(4);
-             
-        //this.selectedPropuesta.setComentarioP(this.selectedPropuesta.getComentarioP());
         //  if (this.selectedPropuesta.getUsuario().getNumCreditos() >= 200) {
-        if (this.selectedPropuesta.getNombreP().equals("") || this.selectedPropuesta.getDescripcionP().equals("")
-                || this.selectedPropuesta.getComentarioP().equals("")) {
+        if (this.selectedPropuesta.getNombreP().equals("") || this.selectedPropuesta.getDescripcionP().equals("")) {
             msg = "llene los campos obligatorios";
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null);
             FacesContext.getCurrentInstance().addMessage(null, message);
@@ -94,6 +88,8 @@ public class PropuestaBean {
             this.selectedPropuesta.setSeccionDep(new SeccionDep(1));
             this.selectedPropuesta.setComiteIdcomite(1);
             this.selectedPropuesta.setFechaP(new Date());
+            this.selectedPropuesta.setUsuario(id.obtenerUsuario(1));
+        //   System.out.println("usuario"+selectedPropuesta.getUsuario().getNombres());
             
             if (usuarioDao.crearPropuesta(this.selectedPropuesta)) {
                 msg = "Guardado correctamente su Propuesta";
@@ -115,23 +111,19 @@ public class PropuestaBean {
     }
 
     public void btnEditarPropuesta(ActionEvent actionEvent) {
-        UsuarioDao usuarioDao = new UsuarioDaoImplemet();
+       UsuarioDao usuarioDao = new UsuarioDaoImplemet();
         String msg;
-//        this.selectedPropuesta.setNombreP(this.selectedPropuesta.getNombreP());
-//        this.selectedPropuesta.setDescripcionP(this.selectedPropuesta.getDescripcionP());
-//        this.selectedPropuesta.setEstadoP(this.selectedPropuesta.getEstadoP());
-//        this.selectedPropuesta.setComentarioP(this.selectedPropuesta.getComentarioP());
-        
-        System.out.println("nombe"+selectedPropuesta.getNombreP());
-         System.out.println("descrifpsdfds"+selectedPropuesta.getDescripcionP());
-          System.out.println("estao"+selectedPropuesta.getEstadoP());
-           System.out.println("cimentario"+selectedPropuesta.getComentarioP());
+           this.selectedPropuesta.setSeccionDep(new SeccionDep(1));
+            this.selectedPropuesta.setComiteIdcomite(1);
+            this.selectedPropuesta.setFechaP(new Date());
+            this.selectedPropuesta.setUsuario(id.obtenerUsuario(1));
+            
         if (usuarioDao.modificarPropuesta(this.selectedPropuesta)) {
             msg = "MOdificado correctamente su Propuesta";
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, msg, null);
             FacesContext.getCurrentInstance().addMessage(null, message);
         } else {
-            msg = "Erroro al Modifcar  Propuesta";
+            msg = "Error al Modifcar  Propuesta";
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null);
             FacesContext.getCurrentInstance().addMessage(null, message);
 

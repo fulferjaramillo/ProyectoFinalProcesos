@@ -27,7 +27,9 @@ private Proyectoft selectedProyectoft;
     public ProyectoftBean() {
         this.proyecto=new ArrayList<Proyectoft>();
         this.selectedProyectoft=new Proyectoft();
+        
     }
+    
 
     public List<Proyectoft> getProyecto() {
         UsuarioDao usuarioDao=new UsuarioDaoImplemet();

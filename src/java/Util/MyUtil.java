@@ -19,5 +19,7 @@ public class MyUtil {
     public static String basepath(){
     return "/faces/views/";
     }
+   
+    
     
 }

@@ -59,18 +59,21 @@ public class LoginBean implements Serializable {
             loggedIn = true;
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", this.usuario.getCorreo());
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", this.usuario.getCorreo());
-            ruta = MyUtil.basepathLOgin() + "views/Estudiante.xhtml?1";
+            ruta = MyUtil.basepathLOgin() + "views/Estudiante.xhtml?"+this.usuario.getIdusuario();
+            System.out.println("id usuario"+this.usuario.getIdusuario());
 
         }else if (this.usuario != null && this.usuario.getRol()==2) {
             loggedIn = true;
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", this.usuario.getCorreo());
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", this.usuario.getCorreo());
-            ruta = MyUtil.basepathLOgin() + "views/Docente.xhtml";
+            ruta = MyUtil.basepathLOgin() + "views/Docente.xhtml?"+this.usuario.getIdusuario();
+             System.out.println("id usuario"+this.usuario.getIdusuario());
         }else if (this.usuario != null && this.usuario.getRol()==3) {
             loggedIn = true;
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", this.usuario.getCorreo());
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", this.usuario.getCorreo());
-            ruta = MyUtil.basepathLOgin() + "views/Director.xhtml";
+            ruta = MyUtil.basepathLOgin() + "views/Director.xhtml?"+this.usuario.getIdusuario();
+             System.out.println("id usuario"+this.usuario.getIdusuario());
         }else{
         
             loggedIn = false;
