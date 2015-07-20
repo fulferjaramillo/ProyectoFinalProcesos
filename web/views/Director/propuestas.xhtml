@@ -58,6 +58,17 @@
                                 </p:confirmDialog>
                             </h:form>
                         </p:column>
+                        <p:column style="width:100px;text-align: center">
+                            <h:form>           
+                                <p:growl id="message" showDetail="true" />
+
+                                <p:commandButton value="Confirmar Propuesta" actionListener="#{proyectoftBean.btnCrearProyectoft(actionEvent)}" update="message">
+                                    <p:confirm header="Confirmar" message="Are you sure?" icon="ui-icon-alert" />
+                                </p:commandButton>
+
+                               
+                            </h:form>
+                        </p:column>
                     </p:dataTable>
                 </h:form>
                     <h:form id="formComprobar">

@@ -36,6 +36,7 @@ public class Propuesta  implements java.io.Serializable {
      private String comentarioP;
 
     public Propuesta() {
+        this.estadoP=1;
     }
 
     public Propuesta(SeccionDep seccionDep, Usuario usuario, String nombreP, Integer estadoP, String descripcionP, Date fechaP, Integer comiteIdcomite, String comentarioP) {

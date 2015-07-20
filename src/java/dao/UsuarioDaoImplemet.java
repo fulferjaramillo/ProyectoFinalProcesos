@@ -5,6 +5,7 @@
  */
 package dao;
 
+import CapaDatos.Comite;
 import CapaDatos.Propuesta;
 import CapaDatos.Proyectoft;
 import CapaDatos.Usuario;
@@ -62,15 +63,15 @@ public class UsuarioDaoImplemet implements UsuarioDao {
         try {
             sesion.beginTransaction();
             listado = sesion.createQuery(sql).list();
-          // sesion.getTransaction().commit();
+            // sesion.getTransaction().commit();
 
         } catch (Exception e) {
             sesion.getTransaction().rollback();
             System.out.println("No hay propuestas que mostrar:" + e.getCause());
-                 
+
         }
         return listado;
-        
+
     }
 
     @Override
@@ -90,13 +91,45 @@ public class UsuarioDaoImplemet implements UsuarioDao {
     }
 
     @Override
+    public List<Comite> findAllComite() {
+        List<Comite> listado = new ArrayList<>();
+        //Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
+        String sql = "FROM Comite";
+        try {
+            sesion.beginTransaction();
+            listado = sesion.createQuery(sql).list();
+
+        } catch (Exception e) {
+            sesion.getTransaction().rollback();
+            System.out.println("No hay comite que mostrar" + e);
+        }
+        return listado;
+    }
+
+    @Override
     public boolean crearPropuesta(Propuesta propuesta) {
         boolean cr;
         //  Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
 
         try {
-           // sesion.beginTransaction();
+            // sesion.beginTransaction();
             sesion.save(propuesta);
+            sesion.getTransaction().commit();
+            cr = true;
+        } catch (Exception e) {
+            cr = false;
+            System.out.println(e.getMessage());
+            // sesion.beginTransaction().rollback();
+        }
+        return cr;
+    }
+
+    @Override
+    public boolean crearProyectoft(Proyectoft proyectoft) {
+        boolean cr;
+        try {
+            // sesion.beginTransaction();
+            sesion.save(proyectoft);
             sesion.getTransaction().commit();
             cr = true;
         } catch (Exception e) {
@@ -113,7 +146,7 @@ public class UsuarioDaoImplemet implements UsuarioDao {
         //   Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
         System.out.println("aqui1");
         try {
-          // sesion.beginTransaction();          
+            // sesion.beginTransaction();          
             sesion.update(propuesta);
             sesion.getTransaction().commit();
 
@@ -142,4 +175,5 @@ public class UsuarioDaoImplemet implements UsuarioDao {
         return model;
 
     }
+
 }

@@ -40,22 +40,15 @@
                         <p:column headerText="Comentarios ">
                             <h:outputText value="#{usuario.comentarioPy}" />
                         </p:column>
-
-                       
-
-                        <p:column style="width:100px;text-align: center">
-                            <h:form>           
-                                <p:growl id="message" showDetail="true" />
-
-                                <p:commandButton value="Confirmar Propuesta" actionListener="#{dialogView.destroyWorld}" update="message">
-                                    <p:confirm header="Confirmar" message="Are you sure?" icon="ui-icon-alert" />
-                                </p:commandButton>
-
-                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                                </p:confirmDialog>
-                            </h:form>
+                        
+                        <p:column headerText="Seccion Departamental ">
+                            <h:outputText value="#{usuario.usuario.seccionDep.nombreS}" />
+                        </p:column>
+                        
+                        <p:column headerText="Comite ">
+                            <h:outputText value="Jorge Lopez/" />
+                            <h:outputText value="Armando Cabrera/" />
+                            <h:outputText value="Rommel Torres" />
                         </p:column>
                     </p:dataTable>
                 </h:form>

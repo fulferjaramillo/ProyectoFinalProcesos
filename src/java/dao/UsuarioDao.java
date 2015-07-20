@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package dao;
+import CapaDatos.Comite;
 import CapaDatos.Propuesta;
 import CapaDatos.Proyectoft;
 import CapaDatos.Usuario;
@@ -19,6 +20,8 @@ public interface UsuarioDao {
     public Usuario login(Usuario usuario);
     public List<Propuesta> findAll();
      public List<Proyectoft> findAllProyectoft();
+     public List<Comite> findAllComite();
     public boolean crearPropuesta(Propuesta propuesta);
+    public boolean crearProyectoft(Proyectoft proyectoft);
     public boolean modificarPropuesta(Propuesta propuesta);
 }

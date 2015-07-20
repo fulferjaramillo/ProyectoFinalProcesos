@@ -113,6 +113,8 @@ public class PropuestaBean {
     public void btnEditarPropuesta(ActionEvent actionEvent) {
        UsuarioDao usuarioDao = new UsuarioDaoImplemet();
         String msg;
+        this.selectedPropuesta.setNombreP(this.selectedPropuesta.getNombreP());
+        this.selectedPropuesta.setDescripcionP(this.selectedPropuesta.getDescripcionP());
            this.selectedPropuesta.setSeccionDep(new SeccionDep(1));
             this.selectedPropuesta.setComiteIdcomite(1);
             this.selectedPropuesta.setFechaP(new Date());
